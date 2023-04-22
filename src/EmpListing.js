@@ -96,7 +96,7 @@ const EmpListing = () => {
             </Modal.Header>
             <Modal.Body>Sure,are you going to Delete</Modal.Body>
             <Modal.Footer>
-               <Button variant="secondary" >
+               <Button variant="secondary" onClick={handelDeleteItem}>
                   Ok
                </Button>
                <Button variant="primary" onClick={handleClose}>
