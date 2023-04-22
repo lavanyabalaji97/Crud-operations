@@ -3,29 +3,33 @@ import EmpCreate from './EmpCreate';
 import EmpDetails from './EmpDetails';
 import EmpEdit from './EmpEdit';
 import EmpListing from './EmpListing';
-import { BrowserRouter,Route,Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+
 
 
 function App() {
   return (
     <div className="App">
-    <h1>React js CRUD peration</h1>
-    <BrowserRouter>
-    <Routes>
-      <Route path='/' element={<EmpListing/>}/>
-      <Route path='/employee/create' element={<EmpCreate/>}/>
-      <Route path='/employee/detail/:empid' element={<EmpDetails/>}/>
-      <Route path='/employee/edit/:empid' element={<EmpEdit/>}/>
-
-
-    </Routes>
+      <h1>React js CRUD operation</h1>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<EmpListing />} />
+          <Route path='/employee/create' element={<EmpCreate />} />
+          <Route path='/employee/detail/:empid' element={<EmpDetails />} />
+          <Route path='/employee/edit/:empid' element={<EmpEdit />} />
+          
+        </Routes>
+      </BrowserRouter>
   
-  </BrowserRouter>
-
-  
+      
     </div>
   );
- 
+
 }
+
+// export default App;
+
+
 
 export default App;
