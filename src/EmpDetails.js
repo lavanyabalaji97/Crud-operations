@@ -16,7 +16,7 @@ const EmpDetails = () => {
       .catch((err) => {
         console.log(err.message);
       })
-  }, [])
+  }, [empid])
   return (
 
     <div className="card col-lg-5 m-auto" style={{ textAlign: "left" }}>

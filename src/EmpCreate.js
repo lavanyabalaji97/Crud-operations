@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -8,22 +8,36 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const EmpCreate = () => {
 
+
+
     const [name, namechange] = useState("");
     const [email, emailchange] = useState("");
-
+    const [emailError, setEmailError] = useState("");
     const [phone, phonechange] = useState("");
     const [active, activechange] = useState(true);
     const [validation, valchange] = useState(false);
-    // const [input, setInput] = useState("")
-    
+    const [phoneError, setPhoneError] = useState("");
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const handleEmailBlur = () => {
+        if (!emailRegex.test(email)) {
+            setEmailError("Please enter a valid email address");
+        } else {
+            setEmailError("");
+        }
+    };
+    const phoneRegex = /^\d{10}$/;
+    const handlePhoneBlur = () => {
+        if (!phoneRegex.test(phone)) {
+            setPhoneError("Please enter a valid 10-digit phone number");
+        } else {
+            setPhoneError("");
+        }
+    };
     // const navigate = useNavigate();
     const handlesubmit = (e) => {
         e.preventDefault();
         const empdata = { name, email, phone, active }
-
-
-
         fetch("http://localhost:8000/employee", {
             method: "POST",
             headers: { "content-type": "application/json" },
@@ -40,7 +54,7 @@ const EmpCreate = () => {
                     draggable: true,
                     progress: undefined,
                     theme: "colored",
-                    
+
                 },);
                 //    navigate('/');
             })
@@ -63,31 +77,25 @@ const EmpCreate = () => {
                                 <div className="col-lg-12">
                                     <div className="form-group">
                                         <label htmlFor="name">Name</label>
-                                        <input required value={name} onMouseDown={e => valchange(true)} id="name" onChange={e => namechange(e.target.value)} className="form-control"></input>
-                                        {name.length === 0 && validation && <span className="text-danger">Enter the name</span>}
+                                        <input required value={name} onMouseDown={e => valchange(true)} id="name" onChange={e => namechange(e.target.value)} onBlur={handleEmailBlur} className="form-control"></input>
+                                        {/* {name.length === 0 && validation && <span className="text-danger">Enter the name</span>} */}
                                     </div>
                                 </div>
                                 <div className="col-lg-12">
                                     <div className="form-group">
 
                                         <label htmlFor="email">Email</label>
-                                        <input value={email} onChange={e => emailchange(e.target.value)} id="email" className="form-control"></input>
-                                        
+                                        <input type="email" value={email} onChange={e => emailchange(e.target.value)} onBlur={handleEmailBlur} className="form-control"></input>
+                                        {emailError && <span className="error text-danger">{emailError}</span>}
                                         {/* {email.length === 0 && <span className="text-danger">Enter Email</span>}
                                          */}
-
-
-
                                     </div>
                                 </div>
                                 <div className="col-lg-12">
                                     <div className="form-group">
                                         <label htmlFor="phone">phone</label>
-                                        <input value={phone} onChange={e => phonechange(e.target.value)} id="phone" className="form-control"></input>
-                                        {phone.length === 0 && <span className="text-danger">Enter phone</span>}
-
-
-
+                                        <input type="tel" value={phone} onChange={e => phonechange(e.target.value)} maxLength={10} onBlur={handlePhoneBlur} className="form-control"></input>
+                                        {phoneError && <span className="error text-danger">{phoneError}</span>}
                                     </div>
                                 </div>
                                 <div className="col-lg-12">

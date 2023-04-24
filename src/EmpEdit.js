@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
 function EmpEdit() {
     const { empid } = useParams();
-
-    const [empdata, empdatachange] = useState([])
+    // const [empdata, empdatachange] = useState([])
 
     useEffect(() => {
         fetch("http://localhost:8000/employee/" + empid).then((res) => {
@@ -24,19 +23,19 @@ function EmpEdit() {
             .catch((err) => {
                 console.log(err.message);
             })
-    }, [])
-    const [id, idchange] = useState("");
+    }, [empid])
+    // const [id, idchange] = useState("");
     const [name, namechange] = useState("");
     const [email, emailchange] = useState("");
     const [phone, phonechange] = useState("");
     const [active, activechange] = useState(true);
-    const [validation, valchange] = useState(false);
+    // const [validation, valchange] = useState(false);
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const handlesubmit = (e) => {
         e.preventDefault();
-        const empdata = { id, name, email, phone, active }
+        const empdata = { name, email, phone, active }
 
         fetch("http://localhost:8000/employee/" + empid, {
             method: "PUT",
