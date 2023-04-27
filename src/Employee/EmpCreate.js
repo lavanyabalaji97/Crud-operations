@@ -1,15 +1,22 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
-
+const showSuccessToast = (message) => {
+    toast.success(message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+    },);
+}
 
 const EmpCreate = () => {
-
-
-
     const [name, namechange] = useState("");
     const [email, emailchange] = useState("");
     const [emailError, setEmailError] = useState("");
@@ -17,6 +24,7 @@ const EmpCreate = () => {
     const [active, activechange] = useState(true);
     const [validation, valchange] = useState(false);
     const [phoneError, setPhoneError] = useState("");
+    const navigate = useNavigate();
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const handleEmailBlur = () => {
@@ -26,6 +34,7 @@ const EmpCreate = () => {
             setEmailError("");
         }
     };
+
     const phoneRegex = /^\d{10}$/;
     const handlePhoneBlur = () => {
         if (!phoneRegex.test(phone)) {
@@ -34,7 +43,6 @@ const EmpCreate = () => {
             setPhoneError("");
         }
     };
-    // const navigate = useNavigate();
     const handlesubmit = (e) => {
         e.preventDefault();
         const empdata = { name, email, phone, active }
@@ -42,21 +50,13 @@ const EmpCreate = () => {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(empdata)
-        }).then((res) => res.json())
+        })
+            .then((res) => res.json())
             .then((res) => {
-                //    alert("saved successfully")
-                toast.success('user created', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-
-                },);
-                //    navigate('/');
+                showSuccessToast('user created')
+                window.setTimeout(() => {
+                    navigate('/');
+                }, 1000)
             })
             .catch((err) => {
                 console.log(err.message)
@@ -107,7 +107,6 @@ const EmpCreate = () => {
                                 </div>
                                 <div className="col-lg-12">
                                     <div className="form-check">
-
                                         <button className="btn btn-success" type="submit" >save</button>
                                         <Link to="/" className="btn btn-danger">Back</Link>
                                     </div>

@@ -1,8 +1,8 @@
 import './App.css';
-import EmpCreate from './EmpCreate';
-import EmpDetails from './EmpDetails';
-import EmpEdit from './EmpEdit';
-import EmpListing from './EmpListing';
+import EmpCreate from './Employee/EmpCreate';
+import EmpDetails from './Employee/EmpDetails';
+import EmpEdit from './Employee/EmpEdit';
+import EmpListing from './Employee/EmpListing';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 
